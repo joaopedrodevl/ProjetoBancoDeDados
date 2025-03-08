@@ -1,0 +1,22 @@
+networks:
+  acmed:
+    driver: bridge
+
+services:
+  mysql:
+    image: docker.io/bitnami/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=acmed
+      - MYSQL_USER=acmed
+      - MYSQL_PASSWORD=acmed
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql_data:/bitnami/mysql/data
+      - ./sql-scripts:/docker-entrypoint-initdb.d
+    networks:
+      - acmed
+
+volumes:
+  data:
+    driver: local
