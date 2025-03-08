@@ -11,7 +11,7 @@ FROM Paciente p
 JOIN Consulta c ON p.ID_Paciente = c.ID_Paciente
 WHERE c.Status = 'Agendada';
 
--- Calcula o total de consultas realizadas por médico.
+-- Calcula o total de consultas realizadas por cada médico.
 SELECT m.Nome AS Nome_Medico, COUNT(c.ID_Consulta) AS Total_Consultas
 FROM Medico m
 LEFT JOIN Consulta c ON m.ID_Medico = c.ID_Medico
@@ -41,14 +41,14 @@ GROUP BY m.Nome
 ORDER BY Total_Canceladas DESC
 LIMIT 1;
 
--- Identifica especialidade com mais consultas.
-SELECT e.Nome_Especialidade, COUNT(c.ID_Consulta) AS Total_Consultas
-FROM Especialidade e
-JOIN Medico_Especialidade me ON e.ID_Especialidade = me.ID_Especialidade
-JOIN Medico m ON me.ID_Medico = m.ID_Medico
-JOIN Consulta c ON m.ID_Medico = c.ID_Medico
-GROUP BY e.Nome_Especialidade
-ORDER BY Total_Consultas DESC;
+-- Mostra as especialidades médicas mais procuradas pelos pacientes, com base no número de consultas agendadas.
+SELECT e.Nome_Especialidade, COUNT(c.ID_Consulta) AS Total_Agendadas 
+FROM Consulta c 
+JOIN Especialidade e 
+ON c.ID_Especialidade = e.ID_Especialidade 
+WHERE c.Status = "Agendada" 
+GROUP BY c.ID_Especialidade 
+ORDER BY COUNT(c.ID_Consulta) DESC;
 
 -- Lista os pacientes com consultas agendadas para Março de 2025.
 SELECT p.Nome AS Nome_Paciente, c.Data_Hora
