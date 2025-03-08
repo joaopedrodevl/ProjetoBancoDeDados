@@ -29,6 +29,9 @@ DELETE FROM Usuario WHERE ID_Usuario = 1;
 -- Remove a associação entre médicos e a especialidade 5 (Ginecologia).
 DELETE FROM Medico_Especialidade WHERE ID_Especialidade = 5;
 
+-- Remove os Prontuarios que tenham uma consulta com a especialidade 5
+DELETE FROM Prontuario WHERE ID_Consulta IN (SELECT ID_Consulta FROM Consulta WHERE ID_Especialidade=5);
+
 -- Remove a especialidade 5.
 DELETE FROM Especialidade WHERE ID_Especialidade = 5;
 
