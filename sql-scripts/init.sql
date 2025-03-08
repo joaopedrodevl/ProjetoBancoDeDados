@@ -66,6 +66,10 @@ ALTER TABLE Medico
 ADD COLUMN ID_Usuario INT NOT NULL UNIQUE,
 ADD FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario);
 
+ALTER TABLE Consulta
+ADD COLUMN ID_Especialidade INT NOT NULL,
+ADD FOREIGN KEY (ID_Especialidade) REFERENCES Especialidade(ID_Especialidade);
+
 INSERT INTO Usuario (Login, Senha, Tipo_Usuario)
 VALUES 
 ('joao@gmail.com', SHA2('senha123', 256), 'Paciente'),
@@ -95,7 +99,7 @@ VALUES
 INSERT INTO Paciente (Nome, CPF, Data_Nascimento, Telefone, Email, ID_Usuario)
 VALUES 
 ('João Silva', '12345678901', '1990-05-15', '83999999999', 'joao@gmail.com', 1),
-('Maria Souza', '23456789012', '1985-08-20', '83888888888', 'maria@gmail.com', 2),
+('Maria Souza', '23456789012', '2015-08-20', '83888888888', 'maria@gmail.com', 2),
 ('Carlos Lima', '34567890123', '1970-12-10', '83777777777', 'carlos@gmail.com', 3),
 ('Ana Costa', '45678901234', '1995-03-25', '83666666666', 'ana@gmail.com', 4),
 ('Pedro Santos', '56789012345', '1980-07-12', '83555555555', 'pedro@gmail.com', 5),
@@ -152,39 +156,39 @@ VALUES
 (9, 10),
 (10, 1);
 
-INSERT INTO Consulta (Data_Hora, Status, Observacoes, ID_Paciente, ID_Medico)
+INSERT INTO Consulta (Data_Hora, Status, Observacoes, ID_Paciente, ID_Medico, ID_Especialidade)
 VALUES 
-('2025-04-10 09:00:00', 'Agendada', 'Consulta de rotina', 1, 1),
-('2025-03-10 10:00:00', 'Realizada', 'Acompanhamento pediátrico', 2, 2),
-('2025-03-11 14:00:00', 'Realizada', 'Exame ortopédico', 3, 3),
-('2025-04-12 16:00:00', 'Cancelada', 'Consulta dermatológica', 4, 4),
-('2025-03-13 08:00:00', 'Realizada', 'Consulta ginecológica', 5, 5),
-('2025-03-25 11:30:00', 'Realizada', 'Revisão cardíaca', 1, 1),
-('2025-04-03 14:45:00', 'Cancelada', 'Consulta preventiva', 3, 2),
-('2025-04-15 09:15:00', 'Agendada', 'Tratamento de pele', 2, 4),
-('2025-03-20 16:00:00', 'Cancelada', 'Dor nas costas', 4, 3),
-('2025-04-22 10:30:00', 'Agendada', 'Exame de rotina', 5, 1),
-('2025-03-18 13:00:00', 'Realizada', 'Prevenção anual', 2, 5),
-('2025-05-05 15:30:00', 'Agendada', 'Alergia sazonal', 1, 4), 
-('2025-04-30 08:45:00', 'Agendada', 'Acompanhamento ortopédico', 3, 3),
-('2025-03-29 12:00:00', 'Realizada', 'Checkup completo', 5, 2),
-('2025-05-10 09:00:00', 'Cancelada', 'Consulta de rotina', 1, 6),
-('2025-05-11 10:00:00', 'Cancelada', 'Acompanhamento neurológico', 2, 7),
-('2025-05-12 14:00:00', 'Realizada', 'Exame psiquiátrico', 3, 8),
-('2025-05-13 16:00:00', 'Cancelada', 'Consulta oftalmológica', 4, 9),
-('2025-05-14 08:00:00', 'Realizada', 'Consulta endocrinológica', 5, 10),
-('2025-05-15 08:30:00', 'Agendada', 'Revisão neurológica', 1, 7),
-('2025-05-15 10:45:00', 'Agendada', 'Consulta preventiva', 3, 6),
-('2025-05-15 14:15:00', 'Agendada', 'Tratamento oftalmológico', 2, 9),
-('2025-05-18 16:00:00', 'Cancelada', 'Dor nas costas', 4, 8),
-('2025-05-20 08:30:00', 'Agendada', 'Exame de rotina', 5, 6),
-('2025-05-20 13:00:00', 'Agendada', 'Prevenção anual', 2, 10),
-('2025-05-20 15:30:00', 'Agendada', 'Alergia sazonal', 1, 9), 
-('2025-05-22 08:45:00', 'Agendada', 'Acompanhamento psiquiátrico', 3, 8),
-('2025-05-22 12:00:00', 'Agendada', 'Checkup completo', 5, 7),
-('2025-03-10 09:00:00', 'Realizada', 'Consulta de rotina', 4, 2),
-('2025-03-10 11:00:00', 'Agendada', 'Exame de retorno', 7, 2),
-('2025-03-10 14:00:00', 'Agendada', 'Consulta de acompanhamento', 8, 2);
+('2025-04-10 09:00:00', 'Agendada', 'Consulta de rotina', 1, 1, 1),
+('2025-03-10 10:00:00', 'Realizada', 'Acompanhamento pediátrico', 2, 2, 2),
+('2025-03-11 14:00:00', 'Realizada', 'Exame ortopédico', 3, 3, 3),
+('2025-04-12 16:00:00', 'Cancelada', 'Consulta dermatológica', 4, 4, 4),
+('2025-03-13 08:00:00', 'Realizada', 'Consulta ginecológica', 5, 5, 5),
+('2025-03-25 11:30:00', 'Realizada', 'Revisão cardíaca', 1, 1, 1),
+('2025-04-03 14:45:00', 'Cancelada', 'Consulta preventiva', 3, 2, 2),
+('2025-04-15 09:15:00', 'Agendada', 'Tratamento de pele', 2, 4, 4),
+('2025-03-20 16:00:00', 'Cancelada', 'Dor nas costas', 4, 3, 3),
+('2025-04-22 10:30:00', 'Agendada', 'Exame de rotina', 5, 1, 1),
+('2025-03-18 13:00:00', 'Realizada', 'Prevenção anual', 2, 5, 5),
+('2025-05-05 15:30:00', 'Agendada', 'Alergia sazonal', 1, 4, 4), 
+('2025-04-30 08:45:00', 'Agendada', 'Acompanhamento ortopédico', 3, 3, 3),
+('2025-03-29 12:00:00', 'Realizada', 'Checkup completo', 5, 2, 2),
+('2025-05-10 09:00:00', 'Cancelada', 'Consulta de rotina', 1, 6, 6),
+('2025-05-11 10:00:00', 'Cancelada', 'Acompanhamento neurológico', 2, 7, 7),
+('2025-05-12 14:00:00', 'Realizada', 'Exame psiquiátrico', 3, 8, 7),
+('2025-05-13 16:00:00', 'Cancelada', 'Consulta oftalmológica', 4, 9, 8),
+('2025-05-14 08:00:00', 'Realizada', 'Consulta endocrinológica', 5, 10, 9),
+('2025-05-15 08:30:00', 'Agendada', 'Revisão neurológica', 1, 7, 6),
+('2025-05-15 10:45:00', 'Agendada', 'Consulta preventiva', 3, 6, 6),
+('2025-05-15 14:15:00', 'Agendada', 'Tratamento oftalmológico', 2, 9, 8),
+('2025-05-18 16:00:00', 'Cancelada', 'Dor nas costas', 4, 8, 8),
+('2025-05-20 08:30:00', 'Agendada', 'Exame de rotina', 5, 6, 6),
+('2025-05-20 13:00:00', 'Agendada', 'Prevenção anual', 2, 10, 10),
+('2025-05-20 15:30:00', 'Agendada', 'Alergia sazonal', 1, 9, 9), 
+('2025-05-22 08:45:00', 'Agendada', 'Acompanhamento psiquiátrico', 3, 8, 7),
+('2025-05-22 12:00:00', 'Agendada', 'Checkup completo', 5, 7, 7),
+('2025-03-10 09:00:00', 'Realizada', 'Consulta de rotina', 4, 2, 2),
+('2025-03-10 11:00:00', 'Agendada', 'Exame de retorno', 7, 2, 2),
+('2025-03-10 14:00:00', 'Agendada', 'Consulta de acompanhamento', 8, 2, 2);
 
 INSERT INTO Prontuario (Diagnostico, Prescricao, Data_Registro, ID_Consulta)
 VALUES 
@@ -195,4 +199,5 @@ VALUES
 ('Parâmetros vitais normais', 'Manter dieta balanceada e atividade física regular', '2025-03-18 13:45:00', 11),
 ('Colesterol LDL limítrofe', 'Dieta com redução de gorduras saturadas, retorno em 3 meses', '2025-03-29 12:50:00', 14),
 ('Transtorno de ansiedade generalizada', 'Escitalopram 10mg 1x ao dia e terapia semanal', '2025-05-12 15:00:00', 17),
-('Hipotireoidismo subclínico', 'Levotiroxina 25mcg em jejum, retorno com exames em 45 dias', '2025-05-14 08:55:00', 19);
+('Hipotireoidismo subclínico', 'Levotiroxina 25mcg em jejum, retorno com exames em 45 dias', '2025-05-14 08:55:00', 19),
+('Torção de tornozelo grau 2', 'Ibuprofeno 600mg 8/8h por 7 dias, repouso e compressas frias', '2025-03-10 09:45:00', 29);
