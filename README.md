@@ -31,18 +31,13 @@ ACMED é um sistema de banco de dados para gerenciamento de consultório médico
 
 ## Estrutura do Banco de Dados
 
-### Diagrama Entidade-Relacionamento (Resumido)
-```
-Paciente (1) ------- (N) Consulta (N) ------ (1) Médico
-                        |
-                        |
-                        v
-                    Prontuário
-                    
-Médico (N) --------- (N) Especialidade
-                        
-Usuário (1) --------- (1) Paciente/Médico
-```
+### Diagramas do Banco de Dados
+
+#### Modelo Entidade-Relacionamento (MER)
+![Diagrama MER](mer.png)
+
+#### Esquema Relacional (ER)
+![Diagrama ER](er.png)
 
 ### Tabelas Principais
 - **Paciente**: Armazena informações de pacientes
